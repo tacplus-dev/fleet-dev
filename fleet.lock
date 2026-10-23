@@ -1,0 +1,21 @@
+# Written by tacplus fleet build. The exact commits this fleet was resolved to; regenerate, do not edit.
+tacplus: "2.2"
+registries:
+    - repo: https://github.com/tacplus-dev/registry.git
+      commit: 6dd2e24417c13306fa9937d4273833e67acbdf3a
+services:
+    - name: kernel
+      id: 8
+      repo: https://github.com/tacplus-dev/kernel.git
+      commit: a6000828845efdc3e30b923ed10ff7a3eeebb7ca
+      contract: https://github.com/tacplus-dev/kernel.git
+    - name: llmproxy
+      id: 75
+      repo: https://github.com/tacplus-dev/llmproxy.git
+      commit: 9981bf5e9c317e1dc43d67d3386ee39c55baedac
+      contract: https://github.com/tacplus-dev/llmproxy.git
+    - name: doppelganger
+      id: 101
+      repo: https://github.com/tacplus-dev/doppelganger.git
+      commit: b7a4e2c66445c7bb4d4ec2cd3de28f76e247c8fb
+      contract: https://github.com/tacplus-dev/doppelganger.git

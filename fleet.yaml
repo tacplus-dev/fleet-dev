@@ -1,0 +1,13 @@
+# The dev fleet for the new design: doppelganger as the proving ground.
+# Jody, 2026-10-23: a deployment repo per fleet; every service states the
+# implementation it runs; the registries decide names and ids.
+registries:
+  - https://github.com/tacplus-dev/registry.git
+tacplus: "2.2"
+services:
+  - name: kernel
+    repo: https://github.com/tacplus-dev/kernel.git
+  - name: llmproxy
+    repo: https://github.com/tacplus-dev/llmproxy.git
+  - name: doppelganger
+    repo: https://github.com/tacplus-dev/doppelganger.git
