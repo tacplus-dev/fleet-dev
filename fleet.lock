@@ -7,15 +7,15 @@ services:
     - name: kernel
       id: 8
       repo: https://github.com/tacplus-dev/kernel.git
-      commit: a6000828845efdc3e30b923ed10ff7a3eeebb7ca
+      commit: dca00800bf7a7588ce03c9e6ba79bdf55dca6b67
       contract: https://github.com/tacplus-dev/kernel.git
     - name: llmproxy
       id: 75
       repo: https://github.com/tacplus-dev/llmproxy.git
-      commit: 9981bf5e9c317e1dc43d67d3386ee39c55baedac
+      commit: 4106903eeef4baf9eb3cf9e5e982a9984b3faffd
       contract: https://github.com/tacplus-dev/llmproxy.git
     - name: doppelganger
       id: 101
       repo: https://github.com/tacplus-dev/doppelganger.git
-      commit: b7a4e2c66445c7bb4d4ec2cd3de28f76e247c8fb
+      commit: 9597ddfaca2a51eb8eea3df297b9892d31b26575
       contract: https://github.com/tacplus-dev/doppelganger.git
