@@ -2,14 +2,14 @@
 tacplus: "2.2"
 registries:
     - repo: https://github.com/tacplus-dev/registry.git
-      commit: 9f2e2f5b8690848d8569e90d4f8085a627b0f140
+      commit: c1872aa8935cb32655dcc83e62a72e220cd7bd65
 services:
     - name: kernel
       id: 8
       repo: https://github.com/tacplus-dev/kernel.git
-      commit: 2e8573f91dd36675faf04117bc3277e638c8a121
+      commit: 803d51f12f78d9da5ea27da968daecebce77fa65
       contract: https://github.com/tacplus-dev/kernel.git
-      contract_commit: 2e8573f91dd36675faf04117bc3277e638c8a121
+      contract_commit: 803d51f12f78d9da5ea27da968daecebce77fa65
     - name: opa
       id: 29
       repo: https://github.com/tacplus-dev/opa.git
@@ -70,3 +70,9 @@ services:
       commit: 9597ddfaca2a51eb8eea3df297b9892d31b26575
       contract: https://github.com/tacplus-dev/doppelganger.git
       contract_commit: 9597ddfaca2a51eb8eea3df297b9892d31b26575
+libraries:
+    - name: agentsensor
+      id: 42
+      contract: https://github.com/tacplus-dev/agentsensor.git
+      contract_commit: adf932e080c6b8e002245d2315a33b6a1b767729
+      referenced_by: services/gateway.proto
