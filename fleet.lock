@@ -2,7 +2,7 @@
 tacplus: "2.2"
 registries:
     - repo: https://github.com/tacplus-dev/registry.git
-      commit: c1872aa8935cb32655dcc83e62a72e220cd7bd65
+      commit: b0527d877874225a91c3dede9c3a58dfc8870e3b
 services:
     - name: kernel
       id: 8
@@ -19,9 +19,9 @@ services:
     - name: gateway
       id: 7
       repo: https://github.com/tacplus-dev/gateway.git
-      commit: 0d31ad722ec4456c0b68d6e92f661bfe094a66c4
+      commit: bf2f4f63a889c8bef05d0bf0f247f57de3e94e82
       contract: https://github.com/tacplus-dev/gateway.git
-      contract_commit: 0d31ad722ec4456c0b68d6e92f661bfe094a66c4
+      contract_commit: bf2f4f63a889c8bef05d0bf0f247f57de3e94e82
     - name: stratum
       id: 34
       repo: https://github.com/tacplus-dev/stratum.git
@@ -67,12 +67,6 @@ services:
     - name: doppelganger
       id: 101
       repo: https://github.com/tacplus-dev/doppelganger.git
-      commit: 9597ddfaca2a51eb8eea3df297b9892d31b26575
+      commit: e2f9bf049d17a9f71eec42c5c765b889d70ef94f
       contract: https://github.com/tacplus-dev/doppelganger.git
-      contract_commit: 9597ddfaca2a51eb8eea3df297b9892d31b26575
-libraries:
-    - name: agentsensor
-      id: 42
-      contract: https://github.com/tacplus-dev/agentsensor.git
-      contract_commit: adf932e080c6b8e002245d2315a33b6a1b767729
-      referenced_by: services/gateway.proto
+      contract_commit: e2f9bf049d17a9f71eec42c5c765b889d70ef94f
