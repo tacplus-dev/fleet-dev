@@ -8,6 +8,8 @@ tacplus: "2.2"
 services:
   - name: kernel
     repo: https://github.com/tacplus-dev/kernel.git
+  - name: operator
+    repo: https://github.com/tacplus-dev/operator.git
   - name: opa
     repo: https://github.com/tacplus-dev/opa.git
   - name: gateway
