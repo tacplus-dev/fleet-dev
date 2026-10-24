@@ -7,9 +7,11 @@ services:
     - name: kernel
       id: 8
       repo: https://github.com/tacplus-dev/kernel.git
-      commit: 5c2c6d1e887234c9254043799e10cb699e805ff8
+      commit: de380a8cc5b51e7445f98d69c05d8414db0cc2a0
       contract: https://github.com/tacplus-dev/kernel.git
-      contract_commit: 5c2c6d1e887234c9254043799e10cb699e805ff8
+      contract_commit: de380a8cc5b51e7445f98d69c05d8414db0cc2a0
+      depends:
+        - opa
     - name: opa
       id: 29
       repo: https://github.com/tacplus-dev/opa.git
@@ -49,27 +51,41 @@ services:
     - name: letsencrypt
       id: 9
       repo: https://github.com/tacplus-dev/letsencrypt.git
-      commit: 02c573ba8f518e7380dbf081dd47501d6d378afc
+      commit: 2e351a3cef15969010d705b1856fd9b5bb74f4a3
       contract: https://github.com/tacplus-dev/letsencrypt.git
-      contract_commit: 02c573ba8f518e7380dbf081dd47501d6d378afc
+      contract_commit: 2e351a3cef15969010d705b1856fd9b5bb74f4a3
+      depends:
+        - kernel
+        - eventbus
+        - stratum
     - name: blobstore
       id: 58
       repo: https://github.com/tacplus-dev/blobstore.git
-      commit: 7264904dd68c507417774c52b26feeb0d9f6730f
+      commit: b68f01984b4bfd28cd5445e558a22c6582cf77b7
       contract: https://github.com/tacplus-dev/blobstore.git
-      contract_commit: 7264904dd68c507417774c52b26feeb0d9f6730f
+      contract_commit: b68f01984b4bfd28cd5445e558a22c6582cf77b7
+      depends:
+        - eventbus
+        - stratum
     - name: messaging
       id: 53
       repo: https://github.com/tacplus-dev/messaging.git
-      commit: 0cd43bc851f3e697468d28c68dcfecbb42b8ff06
+      commit: 2214552406a3e5512a87ee023940462ae9b369da
       contract: https://github.com/tacplus-dev/messaging.git
-      contract_commit: 0cd43bc851f3e697468d28c68dcfecbb42b8ff06
+      contract_commit: 2214552406a3e5512a87ee023940462ae9b369da
+      depends:
+        - stratum
+        - eventbus
     - name: mailbox
       id: 55
       repo: https://github.com/tacplus-dev/mailbox.git
-      commit: cbb335b5b63f634f5a5b4bff96edf0169f52545f
+      commit: ffe06bc8cc9997b83fe9e23b903b79a0eeaf819b
       contract: https://github.com/tacplus-dev/mailbox.git
-      contract_commit: cbb335b5b63f634f5a5b4bff96edf0169f52545f
+      contract_commit: ffe06bc8cc9997b83fe9e23b903b79a0eeaf819b
+      depends:
+        - eventbus
+        - stratum
+        - messaging
     - name: llmproxy
       id: 75
       repo: https://github.com/tacplus-dev/llmproxy.git
@@ -79,6 +95,6 @@ services:
     - name: doppelganger
       id: 101
       repo: https://github.com/tacplus-dev/doppelganger.git
-      commit: 1de0993c2ce7991ca752c176338cfa0772f9a04b
+      commit: 39694a8e60cf9c49ca64c37fb60f982ccd0e81ff
       contract: https://github.com/tacplus-dev/doppelganger.git
-      contract_commit: 1de0993c2ce7991ca752c176338cfa0772f9a04b
+      contract_commit: 39694a8e60cf9c49ca64c37fb60f982ccd0e81ff
