@@ -10,15 +10,6 @@ services:
       commit: 5c2c6d1e887234c9254043799e10cb699e805ff8
       contract: https://github.com/tacplus-dev/kernel.git
       contract_commit: 5c2c6d1e887234c9254043799e10cb699e805ff8
-    - name: operator
-      id: 47
-      repo: https://github.com/tacplus-dev/operator.git
-      commit: 39b13432e03c840db82405dd058dacc4a9beb894
-      contract: https://github.com/tacplus-dev/operator.git
-      contract_commit: 39b13432e03c840db82405dd058dacc4a9beb894
-      depends:
-        - oauth
-        - kmaker
     - name: opa
       id: 29
       repo: https://github.com/tacplus-dev/opa.git
@@ -28,9 +19,9 @@ services:
     - name: gateway
       id: 7
       repo: https://github.com/tacplus-dev/gateway.git
-      commit: 77961c2f9f4b69311d059f06297c69dfc2a7d224
+      commit: f75d0208bd65ab8741d4fd74e8de4c365fa48514
       contract: https://github.com/tacplus-dev/gateway.git
-      contract_commit: 77961c2f9f4b69311d059f06297c69dfc2a7d224
+      contract_commit: f75d0208bd65ab8741d4fd74e8de4c365fa48514
     - name: stratum
       id: 34
       repo: https://github.com/tacplus-dev/stratum.git

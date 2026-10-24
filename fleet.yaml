@@ -2,14 +2,14 @@
 # Jody, 2026-10-23: a deployment repo per fleet; every service states the
 # implementation it runs; the registries decide names and ids and say where
 # each contract (proto) lives. Every implementation here is a tacplus-dev repo.
+# operator is not listed: it is a library (Jody, 2026-10-23) this deployment
+# repo will build its own operator from, against build/proto.
 registries:
   - https://github.com/tacplus-dev/registry.git
 tacplus: "2.2"
 services:
   - name: kernel
     repo: https://github.com/tacplus-dev/kernel.git
-  - name: operator
-    repo: https://github.com/tacplus-dev/operator.git
   - name: opa
     repo: https://github.com/tacplus-dev/opa.git
   - name: gateway
