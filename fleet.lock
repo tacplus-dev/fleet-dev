@@ -7,9 +7,18 @@ services:
     - name: kernel
       id: 8
       repo: https://github.com/tacplus-dev/kernel.git
-      commit: 803d51f12f78d9da5ea27da968daecebce77fa65
+      commit: 5c2c6d1e887234c9254043799e10cb699e805ff8
       contract: https://github.com/tacplus-dev/kernel.git
-      contract_commit: 803d51f12f78d9da5ea27da968daecebce77fa65
+      contract_commit: 5c2c6d1e887234c9254043799e10cb699e805ff8
+    - name: operator
+      id: 47
+      repo: https://github.com/tacplus-dev/operator.git
+      commit: 39b13432e03c840db82405dd058dacc4a9beb894
+      contract: https://github.com/tacplus-dev/operator.git
+      contract_commit: 39b13432e03c840db82405dd058dacc4a9beb894
+      depends:
+        - oauth
+        - kmaker
     - name: opa
       id: 29
       repo: https://github.com/tacplus-dev/opa.git
@@ -19,9 +28,9 @@ services:
     - name: gateway
       id: 7
       repo: https://github.com/tacplus-dev/gateway.git
-      commit: bf2f4f63a889c8bef05d0bf0f247f57de3e94e82
+      commit: 77961c2f9f4b69311d059f06297c69dfc2a7d224
       contract: https://github.com/tacplus-dev/gateway.git
-      contract_commit: bf2f4f63a889c8bef05d0bf0f247f57de3e94e82
+      contract_commit: 77961c2f9f4b69311d059f06297c69dfc2a7d224
     - name: stratum
       id: 34
       repo: https://github.com/tacplus-dev/stratum.git
@@ -58,6 +67,18 @@ services:
       commit: 7264904dd68c507417774c52b26feeb0d9f6730f
       contract: https://github.com/tacplus-dev/blobstore.git
       contract_commit: 7264904dd68c507417774c52b26feeb0d9f6730f
+    - name: messaging
+      id: 53
+      repo: https://github.com/tacplus-dev/messaging.git
+      commit: 0cd43bc851f3e697468d28c68dcfecbb42b8ff06
+      contract: https://github.com/tacplus-dev/messaging.git
+      contract_commit: 0cd43bc851f3e697468d28c68dcfecbb42b8ff06
+    - name: mailbox
+      id: 55
+      repo: https://github.com/tacplus-dev/mailbox.git
+      commit: cbb335b5b63f634f5a5b4bff96edf0169f52545f
+      contract: https://github.com/tacplus-dev/mailbox.git
+      contract_commit: cbb335b5b63f634f5a5b4bff96edf0169f52545f
     - name: llmproxy
       id: 75
       repo: https://github.com/tacplus-dev/llmproxy.git
@@ -67,6 +88,6 @@ services:
     - name: doppelganger
       id: 101
       repo: https://github.com/tacplus-dev/doppelganger.git
-      commit: e2f9bf049d17a9f71eec42c5c765b889d70ef94f
+      commit: 1de0993c2ce7991ca752c176338cfa0772f9a04b
       contract: https://github.com/tacplus-dev/doppelganger.git
-      contract_commit: e2f9bf049d17a9f71eec42c5c765b889d70ef94f
+      contract_commit: 1de0993c2ce7991ca752c176338cfa0772f9a04b
