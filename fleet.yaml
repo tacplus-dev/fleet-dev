@@ -26,6 +26,10 @@ services:
     repo: https://github.com/tacplus-dev/letsencrypt.git
   - name: blobstore
     repo: https://github.com/tacplus-dev/blobstore.git
+  - name: messaging
+    repo: https://github.com/tacplus-dev/messaging.git
+  - name: mailbox
+    repo: https://github.com/tacplus-dev/mailbox.git
   - name: llmproxy
     repo: https://github.com/tacplus-dev/llmproxy.git
   - name: doppelganger
