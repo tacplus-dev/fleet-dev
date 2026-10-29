@@ -10,5 +10,7 @@ the looper then marks it `promoted` or `declined` here with the date.
   excluded) and queries OSV (`https://api.osv.dev/v1/querybatch`) for the resolved artifacts, transitive ones
   included. Each advisory so far (#6, #9, #10, #11, #12, #13) was found by hand. Guava in #10 was a transitive
   one, invisible to a scan of the pins alone. Advisories already tracked by an open issue would need an allow-list.
+  OSV also covers what an ecosystem auditor misses: block-buffer GHSA-qwgh-2vcv-g2f7 (#14) is not in RustSec, so
+  `cargo audit` passed while OSV flagged it (2026-10-29).
 
 ## Promoted / declined
