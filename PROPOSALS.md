@@ -32,6 +32,10 @@ the looper then marks it `promoted` or `declined` here with the date.
   install/deploy 3.1.4 (4.0.1) and site 3.12.1 (3.4.2), all under GHSA-6fmv-xxpf-w3cw. They come from the
   Maven that runs the build unless a pom pins them. Pin releases on 4.0.3 here (and in the service poms) or
   override them as #17 does shade; checks/shade.sh's realm check could cover them.
+- **The service poms still pin maven-compiler-plugin 3.15.0** (2026-11-02, #17): #16 moved the pin here to
+  3.16.0 past GHSA-6fmv-xxpf-w3cw, but the root poms of kernel, stratum and eventbus still set
+  `maven-compiler-plugin.version` to 3.15.0, on the affected plexus-utils. The shade overrides (kernel#33,
+  stratum#25, eventbus#18) did not touch it, and no issue tracks it: each service needs a `bug` issue to bump it.
 - **Drop the shade override when shade is fixed** (2026-11-02, #17): maven-shade-plugin 3.6.2 still asks for
   plexus-utils 3.6.0. Once a release asks for 3.6.1 or later, pin it and remove the override from
   docs/java-plugins.md, checks/shade and the service poms.
