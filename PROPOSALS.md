@@ -16,6 +16,10 @@ the looper then marks it `promoted` or `declined` here with the date.
   maven-compiler-plugin 3.15.0 pulls a vulnerable plexus-utils (#16); and the `>=`/`^` floors resolved as exact
   versions, not just a fresh resolve, since starlette under the fastapi floor (#15) is invisible to a latest-version
   `pip-audit`/`npm audit`.
+  And each plugin resolved on its own (`mvn dependency:resolve-plugins` in a pom that binds them), not all the pins
+  as dependencies of one pom (2026-11-02, #16): Maven gives each plugin its own classpath, but one pom mediates them
+  into a single tree, nearest wins. That hides the plexus-utils 3.5.1 of maven-shade-plugin 3.6.1 behind
+  maven-compiler-plugin 3.16.0's 4.0.3, and it is vulnerable to the same GHSA-6fmv-xxpf-w3cw.
 - **Release-line pins need the 2.6 floor, not 2.4** (2026-10-29, #2): `version: "MAJOR.MINOR"` in `fleet.yaml`
   and the version/image digest in `fleet.lock` come from tacplus#180, which ships in 2.6.0 (tacplus#213, not
   yet released). #1 moves the floor to 2.4 only, so #2 still cannot relock after #1 closes. #1 could target 2.6
