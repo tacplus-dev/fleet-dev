@@ -8,3 +8,7 @@ fleet runs with the repo implementing it. `dependencies.yaml` holds the language
 everything generated from the fleet's merged protos. `tacplus fleet build` resolves it all and
 writes `fleet.lock`, the exact commits; `build/proto` is the merged tree the fleet-side services are
 generated from.
+
+Maven resolves each plugin's own dependencies apart from the pins: the Java services override the ones a
+pinned plugin brings vulnerable, as [docs/java-plugins.md](docs/java-plugins.md) says, and
+`checks/shade.sh` checks that a shaded jar still builds with them.

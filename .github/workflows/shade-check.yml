@@ -1,0 +1,20 @@
+# The shaded-jar check (#17, docs/java-plugins.md): a jar shaded with the pinned maven-shade-plugin
+# and the plexus-utils override still builds and runs, and the plugin runs on plexus-utils 3.6.1.
+name: shade-check
+on:
+  push:
+    branches: [main]
+  pull_request: {}
+permissions:
+  contents: read
+jobs:
+  shade-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
+      - run: checks/shade.sh

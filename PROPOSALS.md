@@ -20,6 +20,21 @@ the looper then marks it `promoted` or `declined` here with the date.
   as dependencies of one pom (2026-11-02, #16): Maven gives each plugin its own classpath, but one pom mediates them
   into a single tree, nearest wins. That hides the plexus-utils 3.5.1 of maven-shade-plugin 3.6.1 behind
   maven-compiler-plugin 3.16.0's 4.0.3, and it is vulnerable to the same GHSA-6fmv-xxpf-w3cw.
+  `dependency:resolve-plugins` lists a plugin's own pom dependencies, not a service pom's override of them
+  (docs/java-plugins.md, #17): the scan needs the allow-list for those, or reads the realm from `mvn -X`.
+- **tacplus: plugin dependencies in `dependencies.yaml`** (2026-11-02, #17): `lang.java.dependencies` pins a
+  Maven plugin's version but cannot say what it runs on, so the plexus-utils 3.6.1 override under
+  maven-shade-plugin is a convention each Java service's pom keeps by hand (docs/java-plugins.md). A way to
+  express it (a plugin's `dependencies:`, say) would let tacplus carry it. A tacplus proposal, as the hub
+  said on #17, not a change here.
+- **The default-lifecycle plugins bring affected plexus-utils too** (2026-11-02, #17): Maven 3.9.16's
+  defaults, which `dependencies.yaml` does not pin, are resources 3.4.0 and jar 3.5.0 (plexus-utils 4.0.2),
+  install/deploy 3.1.4 (4.0.1) and site 3.12.1 (3.4.2), all under GHSA-6fmv-xxpf-w3cw. They come from the
+  Maven that runs the build unless a pom pins them. Pin releases on 4.0.3 here (and in the service poms) or
+  override them as #17 does shade; checks/shade.sh's realm check could cover them.
+- **Drop the shade override when shade is fixed** (2026-11-02, #17): maven-shade-plugin 3.6.2 still asks for
+  plexus-utils 3.6.0. Once a release asks for 3.6.1 or later, pin it and remove the override from
+  docs/java-plugins.md, checks/shade and the service poms.
 - **Release-line pins need the 2.6 floor, not 2.4** (2026-10-29, #2): `version: "MAJOR.MINOR"` in `fleet.yaml`
   and the version/image digest in `fleet.lock` come from tacplus#180, which ships in 2.6.0 (tacplus#213, not
   yet released). #1 moves the floor to 2.4 only, so #2 still cannot relock after #1 closes. #1 could target 2.6
