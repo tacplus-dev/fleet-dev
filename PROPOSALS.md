@@ -42,6 +42,11 @@ the looper then marks it `promoted` or `declined` here with the date.
 - **Drop the antrun override when antrun is fixed** (2026-11-03, #18): maven-antrun-plugin 3.2.0, the newest
   release, still asks for plexus-utils 4.0.2. Once a release asks for 4.0.3 or later, pin it and remove the
   override from docs/java-plugins.md, checks/plugins and the service poms.
+- **Drop the plexus-archiver override when jar and plugin-plugin are fixed** (2026-11-03, kernel#37):
+  maven-jar-plugin 3.5.0 and maven-plugin-plugin 3.15.1 load aircompressor 0.27 through plexus-archiver 4.10.x
+  (GHSA-vx9q-rhv9-3jvg), and only their 4.0.0 betas move past it. Once a release of each asks for plexus-archiver
+  4.15.0 or later, pin it and remove the override from docs/java-plugins.md and the service poms. checks/plugins.sh
+  could run a jar goal and fail on any aircompressor below 2.0.3 in its realm.
 - **Release-line pins need the 2.6 floor, not 2.4** (2026-10-29, #2): `version: "MAJOR.MINOR"` in `fleet.yaml`
   and the version/image digest in `fleet.lock` come from tacplus#180, which ships in 2.6.0 (tacplus#213, not
   yet released). #1 moves the floor to 2.4 only, so #2 still cannot relock after #1 closes. #1 could target 2.6
