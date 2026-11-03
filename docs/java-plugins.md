@@ -69,6 +69,46 @@ which 4.x moved to plexus-xml), and its own 3.4.1 is affected. The same rules as
 override goes, and its realm, `plugin>org.apache.maven.plugins:maven-antrun-plugin:3.2.0`, must include
 plexus-utils 4.0.3. Drop it once an antrun release asks for 4.0.3 or later, and dependencies.yaml pins it.
 
+## maven-jar-plugin and maven-plugin-plugin: plexus-archiver 4.15.0
+
+maven-jar-plugin 3.5.0 (Maven 3.9.16's default) and maven-plugin-plugin 3.15.1 ask for plexus-archiver
+4.10.4 and 4.10.0, which load io.airlift:aircompressor 0.27: GHSA-vx9q-rhv9-3jvg (CVE-2025-67721, HIGH:
+its Snappy and LZ4 decompressors can leak data from reused output buffers), fixed in 2.0.3. Both plugins'
+fixed lines are pre-release (4.0.0-beta-2). plexus-archiver 4.15.0, the newest release, no longer depends
+on aircompressor, so every Java service pom that runs either plugin overrides plexus-archiver to 4.15.0,
+next to the plexus-utils 4.0.3 override they need too (both ask for plexus-utils 4.0.x below 4.0.3):
+
+```xml
+<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-jar-plugin</artifactId>
+	<version>3.5.0</version>
+	<dependencies>
+		<!-- GHSA-6fmv-xxpf-w3cw: jar 3.5.0 asks for plexus-utils 4.0.2 (fleet-dev docs/java-plugins.md) -->
+		<dependency>
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-utils</artifactId>
+			<version>4.0.3</version>
+		</dependency>
+		<!-- GHSA-vx9q-rhv9-3jvg: jar 3.5.0 brings plexus-archiver 4.10.4, which loads aircompressor 0.27
+		     (fleet-dev docs/java-plugins.md) -->
+		<dependency>
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-archiver</artifactId>
+			<version>4.15.0</version>
+		</dependency>
+	</dependencies>
+</plugin>
+```
+
+maven-plugin-plugin, in a pom that builds a Maven plugin, takes the same two. The jar plugin runs in every
+build of a jar whether or not a pom declares it (Maven's default binding), so a pom that does not declare it
+adds it to `<pluginManagement>`, with its version, to carry the override. With it (kernel#37), the jar and plugin-plugin realms include
+plexus-archiver 4.15.0, plexus-io 3.8.0 and no aircompressor, and kernel's jars, `kernel.jar` among them,
+have the same entries with the same CRCs as without. The same rules as shade's hold for where the override
+goes. Drop it once a release of each plugin asks for plexus-archiver 4.15.0 or later, and dependencies.yaml
+pins it.
+
 ## exec-maven-plugin and build-helper-maven-plugin: the pins
 
 No override: exec-maven-plugin 3.6.4 and build-helper-maven-plugin 3.6.2, the pins, run on plexus-utils
