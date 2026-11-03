@@ -11,4 +11,5 @@ generated from.
 
 Maven resolves each plugin's own dependencies apart from the pins: the Java services override the ones a
 pinned plugin brings vulnerable, as [docs/java-plugins.md](docs/java-plugins.md) says, and
-`checks/shade.sh` checks that a shaded jar still builds with them.
+`checks/shade.sh` checks that a shaded jar still builds with them, and `checks/plugins.sh` what the antrun,
+exec and build-helper plugins run on.

@@ -31,7 +31,7 @@ the looper then marks it `promoted` or `declined` here with the date.
   defaults, which `dependencies.yaml` does not pin, are resources 3.4.0 and jar 3.5.0 (plexus-utils 4.0.2),
   install/deploy 3.1.4 (4.0.1) and site 3.12.1 (3.4.2), all under GHSA-6fmv-xxpf-w3cw. They come from the
   Maven that runs the build unless a pom pins them. Pin releases on 4.0.3 here (and in the service poms) or
-  override them as #17 does shade; checks/shade.sh's realm check could cover them.
+  override them as #17 does shade; checks/plugins.sh's realm check (#18) could cover them.
 - **The service poms still pin maven-compiler-plugin 3.15.0** (2026-11-02, #17): #16 moved the pin here to
   3.16.0 past GHSA-6fmv-xxpf-w3cw, but the root poms of kernel, stratum and eventbus still set
   `maven-compiler-plugin.version` to 3.15.0, on the affected plexus-utils. The shade overrides (kernel#33,
@@ -39,6 +39,9 @@ the looper then marks it `promoted` or `declined` here with the date.
 - **Drop the shade override when shade is fixed** (2026-11-02, #17): maven-shade-plugin 3.6.2 still asks for
   plexus-utils 3.6.0. Once a release asks for 3.6.1 or later, pin it and remove the override from
   docs/java-plugins.md, checks/shade and the service poms.
+- **Drop the antrun override when antrun is fixed** (2026-11-03, #18): maven-antrun-plugin 3.2.0, the newest
+  release, still asks for plexus-utils 4.0.2. Once a release asks for 4.0.3 or later, pin it and remove the
+  override from docs/java-plugins.md, checks/plugins and the service poms.
 - **Release-line pins need the 2.6 floor, not 2.4** (2026-10-29, #2): `version: "MAJOR.MINOR"` in `fleet.yaml`
   and the version/image digest in `fleet.lock` come from tacplus#180, which ships in 2.6.0 (tacplus#213, not
   yet released). #1 moves the floor to 2.4 only, so #2 still cannot relock after #1 closes. #1 could target 2.6

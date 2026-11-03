@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The plugin realm check (#18): runs a goal of maven-antrun-plugin, exec-maven-plugin and
+     build-helper-maven-plugin the way the Java services' poms use them, antrun with the plexus-utils
+     override docs/java-plugins.md asks of them. checks/plugins.sh runs it with the versions
+     dependencies.yaml pins and checks what each plugin's class realm includes. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.github.tacplusdev.fleetdev</groupId>
+	<artifactId>plugins-check</artifactId>
+	<version>0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<properties>
+		<!-- checks/plugins.sh sets these from dependencies.yaml -->
+		<antrun-plugin.version/>
+		<exec-plugin.version/>
+		<build-helper-plugin.version/>
+		<!-- GHSA-6fmv-xxpf-w3cw: fixed in 4.0.3 on the 4.x line; antrun 3.2.0 asks for 4.0.2 -->
+		<antrun-plexus-utils.version>4.0.3</antrun-plexus-utils.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>${antrun-plugin.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.plexus</groupId>
+						<artifactId>plexus-utils</artifactId>
+						<version>${antrun-plexus-utils.version}</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<id>antrun</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<echo message="antrun ran"/>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>${exec-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>exec</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>echo</executable>
+							<arguments>
+								<argument>exec ran</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>${build-helper-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${project.build.directory}/generated-sources/check</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

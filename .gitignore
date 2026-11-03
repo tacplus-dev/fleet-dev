@@ -1,3 +1,4 @@
 build/
 checks/shade/target/
 checks/shade/dependency-reduced-pom.xml
+checks/plugins/target/

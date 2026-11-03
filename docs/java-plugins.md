@@ -40,7 +40,43 @@ its `Included: org.codehaus.plexus:plexus-utils:jar:<version>` line must say 3.6
 
 Drop the override once a shade release asks for plexus-utils 3.6.1 or later, and dependencies.yaml pins it.
 
-## The check
+## maven-antrun-plugin: plexus-utils 4.0.3
+
+maven-antrun-plugin 3.2.0, the pin and the newest release, asks for plexus-utils 4.0.2, under
+GHSA-6fmv-xxpf-w3cw too (fixed in 4.0.3 on the 4.x line, #18). Every Java service pom that declares
+maven-antrun-plugin overrides it to 4.0.3, which stays on the 4.x line antrun 3.2.0 is built against:
+
+```xml
+<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-antrun-plugin</artifactId>
+	<version>3.2.0</version>
+	<dependencies>
+		<!-- GHSA-6fmv-xxpf-w3cw: antrun 3.2.0 asks for plexus-utils 4.0.2 (fleet-dev docs/java-plugins.md) -->
+		<dependency>
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-utils</artifactId>
+			<version>4.0.3</version>
+		</dependency>
+	</dependencies>
+	...
+</plugin>
+```
+
+Bump antrun to 3.2.0 with the override, not before it: antrun 3.1.0, the former pin, is built against
+plexus-utils 3.x and fails on 4.0.3 (`A required class was missing ... org/codehaus/plexus/util/xml/XmlStreamReader`,
+which 4.x moved to plexus-xml), and its own 3.4.1 is affected. The same rules as shade's hold for where the
+override goes, and its realm, `plugin>org.apache.maven.plugins:maven-antrun-plugin:3.2.0`, must include
+plexus-utils 4.0.3. Drop it once an antrun release asks for 4.0.3 or later, and dependencies.yaml pins it.
+
+## exec-maven-plugin and build-helper-maven-plugin: the pins
+
+No override: exec-maven-plugin 3.6.4 and build-helper-maven-plugin 3.6.2, the pins, run on plexus-utils
+4.1.0 (and build-helper on commons-io 2.19.0). The former pins, exec 3.5.0 and build-helper 3.6.0, ran on
+plexus-utils 4.0.2 and 4.0.1, and build-helper on commons-io 2.11.0, under GHSA-78wr-2p64-hpwj (CVE-2024-47554,
+HIGH, fixed in 2.14.0) (#18). A service pom sets their versions (`exec-plugin.version`, say) to the pins.
+
+## The checks
 
 `checks/shade.sh` (CI: `.github/workflows/shade-check.yml`) builds `checks/shade`, a jar shaded the way
 the services shade theirs and with this override, at the shade, compiler and gson versions
@@ -53,3 +89,13 @@ shade check: maven-shade-plugin 3.6.1 on plexus-utils 3.6.1, compiler 3.16.0, gs
 ```
 
 It needs Maven 3.6.3 or later (maven-compiler-plugin 3.16.0) and a JDK 17 or later.
+
+`checks/plugins.sh` (CI: `.github/workflows/plugins-check.yml`) runs a goal of each of antrun (with the
+override), exec and build-helper in `checks/plugins`, at the versions `dependencies.yaml` pins, and reads
+each plugin's realm from `mvn -X`. It fails unless every plugin ran, and none of their realms includes a
+plexus-utils under GHSA-6fmv-xxpf-w3cw (below 3.6.1, or 4.0.0 to 4.0.2) or a commons-io below 2.14.0:
+
+```
+$ checks/plugins.sh
+plugins check: maven-antrun-plugin:3.2.0 on plexus-utils 4.0.3, exec-maven-plugin:3.6.4 on plexus-utils 4.1.0, build-helper-maven-plugin:3.6.2 on plexus-utils 4.1.0 and commons-io 2.19.0
+```
