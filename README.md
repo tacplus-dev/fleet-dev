@@ -13,3 +13,8 @@ Maven resolves each plugin's own dependencies apart from the pins: the Java serv
 pinned plugin brings vulnerable, as [docs/java-plugins.md](docs/java-plugins.md) says, and
 `checks/shade.sh` checks that a shaded jar still builds with them, and `checks/plugins.sh` what the antrun,
 exec and build-helper plugins run on.
+
+`tools.node` is Node 24 or later without the end-of-life lines (25): `checks/node.sh` resolves the
+`lang.typescript` pins at the latest versions in range and at their floors, and checks that it admits only a
+Node every resolved package's `engines.node` allows and no line past its end of life in nodejs/Release's
+`schedule.json` (#20).

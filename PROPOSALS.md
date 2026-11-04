@@ -56,5 +56,19 @@ the looper then marks it `promoted` or `declined` here with the date.
   and `deploy/build-operator.sh`, but main has none of them and no deploy docs. Image pull secrets for the private
   release images (#2's note: in every namespace running them, including the tenant namespaces nsproxy creates)
   need a home there. Either bring the tree here (with #3's ephemeral cluster) or say where it lives.
+- **The generated TypeScript packages still declare Node 18** (2026-11-04, #20): tacplus's chassis templates
+  hardcode `engines.node: '>=18.0.0'` and do not read `tools.node`, so gateway's webapp, generated from the fleet
+  tree on Node 24, has seven packages claiming Node 18. A tacplus bug, filed as tacplus-dev/tacplus#318.
+- **The fleet has no Node image, and its TypeScript packages declare no engines** (2026-11-04, #20): gateway's
+  webapp and webapp-login are its only TypeScript, built on the host's Node (`just webapp`, no `FROM node` in any
+  service, no `engines`, no `.nvmrc`), and its image only serves the built files. So nothing pins the Node the
+  fleet builds on. gateway could declare `engines.node` (the `tools.node` here) in both package.json files and set
+  `engine-strict` in an `.npmrc`, and the build image could carry a Node in the range.
+- **Each service's `proto/dependencies.yaml` still says `node: '>=18.0.0'`** (2026-11-04, #20): the copies in
+  the service repos (kernel, gateway, oauth and the other ten) are not this file, and #20 moved only this one. If
+  they are meant to follow it, they need the same raise (or to be synced from here).
+- **Run checks/node.sh on a schedule** (2026-11-04, #20): an end-of-life date passes with no push (24's is
+  2028-04-30, 26's later), and a new release in a `^` range can raise an `engines.node` floor. A weekly run would
+  catch both before a build does.
 
 ## Promoted / declined
