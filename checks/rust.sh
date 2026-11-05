@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # The Rust resolve check (#21): resolve the lang.rust pins of dependencies.yaml, each as an exact version,
-# and check that the lockfile has none of the crates RustSec flags that the pins must not pull.
+# check that the lockfile has none of the crates RustSec flags that the pins must not pull, and that the
+# resolved pins build together (#22).
 set -euo pipefail
 root=$(cd "$(dirname "$0")/.." && pwd)
 tmp=$(mktemp -d)
@@ -32,3 +33,6 @@ while read -r crate advisory; do
 done <<<"$denied"
 [ -z "$found" ] || exit 1
 echo "rust check: the lang.rust pins resolve none of: $(cut -d' ' -f1 <<<"$denied" | xargs)"
+
+(cd "$tmp" && cargo check --quiet --keep-going) || { echo "rust check: the resolved lang.rust pins do not build" >&2; exit 1; }
+echo "rust check: the resolved lang.rust pins build"
