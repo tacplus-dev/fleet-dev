@@ -1,0 +1,15 @@
+# The Rust resolve check (#21): the lang.rust pins in dependencies.yaml, resolved as exact versions, pull
+# none of the crates RustSec flags that checks/rust.sh denies.
+name: rust-check
+on:
+  push:
+    branches: [main]
+  pull_request: {}
+permissions:
+  contents: read
+jobs:
+  rust-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: checks/rust.sh

@@ -22,6 +22,9 @@ the looper then marks it `promoted` or `declined` here with the date.
   maven-compiler-plugin 3.16.0's 4.0.3, and it is vulnerable to the same GHSA-6fmv-xxpf-w3cw.
   `dependency:resolve-plugins` lists a plugin's own pom dependencies, not a service pom's override of them
   (docs/java-plugins.md, #17): the scan needs the allow-list for those, or reads the realm from `mvn -X`.
+  For Rust, checks/rust.sh (#21) already resolves the `lang.rust` pins into a lockfile but only denies the
+  crates named in it (pin-utils, RUSTSEC-2026-0441); running osv-scanner on that lockfile with the allow-list
+  (#9's jsonwebtoken and rustls-pemfile, #13's unsafe-libyaml) would catch the next advisory (2026-11-05).
 - **tacplus: plugin dependencies in `dependencies.yaml`** (2026-11-02, #17): `lang.java.dependencies` pins a
   Maven plugin's version but cannot say what it runs on, so the plexus-utils 3.6.1 override under
   maven-shade-plugin is a convention each Java service's pom keeps by hand (docs/java-plugins.md). A way to

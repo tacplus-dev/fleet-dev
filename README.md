@@ -18,3 +18,6 @@ exec and build-helper plugins run on.
 `lang.typescript` pins at the latest versions in range and at their floors, and checks that it admits only a
 Node every resolved package's `engines.node` allows and no line past its end of life in nodejs/Release's
 `schedule.json` (#20).
+
+`lang.rust` pins hyper 1.9.0 or later, past the unmaintained pin-utils (RUSTSEC-2026-0441): `checks/rust.sh`
+resolves the `lang.rust` pins as exact versions and fails on any crate it denies (#21).
