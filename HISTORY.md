@@ -8,3 +8,4 @@ Append-only: add entries at the end, never edit or remove one (CI enforces it). 
 - 2026-11-02 looper issue dependencies.yaml: maven-shade-plugin 3.6.1 pulls plexus-utils 3.5.1 (GHSA-6fmv-xxpf-w3cw, HIGH); no fixed shade release (#17, 162ec36)
 - 2026-11-03 looper issue dependencies.yaml: exec-maven-plugin 3.5.0, maven-antrun-plugin 3.1.0 and build-helper-maven-plugin 3.6.0 run on vulnerable plexus-utils (GHSA-6fmv-xxpf-w3cw) and commons-io; bump exec/build-helper, override antrun (#18, 8c2f6ec)
 - 2026-11-04 looper issue dependencies.yaml: tools.node '>=18.0.0' allows end-of-life Node 18 and 20, and the TypeScript pins need Node >=22.15.0 (#20, 36b1149)
+- 2026-11-05 looper issue dependencies.yaml: hyper 1.8.1 pulls unmaintained pin-utils (RUSTSEC-2026-0441); pin hyper 1.12.0 (#21, bf9c7c2)
