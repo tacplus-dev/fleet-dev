@@ -70,5 +70,16 @@ the looper then marks it `promoted` or `declined` here with the date.
 - **Run checks/node.sh on a schedule** (2026-11-04, #20): an end-of-life date passes with no push (24's is
   2028-04-30, 26's later), and a new release in a `^` range can raise an `engines.node` floor. A weekly run would
   catch both before a build does.
+- **The default clean and site plugins run on vulnerable commons-io too** (2026-11-05, nightly scan, #18): the
+  default-lifecycle entry above lists plexus-utils only. Maven 3.9.16's default maven-clean-plugin 3.2.0 runs on
+  commons-io 2.6 (GHSA-78wr-2p64-hpwj, the advisory #18 moved build-helper off), through maven-shared-utils 3.3.4,
+  and every `mvn clean` loads it, checks/shade.sh's and checks/plugins.sh's included
+  (`mvn -X -f checks/plugins/pom.xml clean`: `Populating class realm plugin>...:maven-clean-plugin:3.2.0`,
+  `Included: commons-io:commons-io:jar:2.6`). clean 3.5.0, the newest release, drops commons-io but asks for
+  plexus-utils 4.0.2 (GHSA-6fmv-xxpf-w3cw), so it needs the 4.0.3 override that antrun has. The default site
+  plugin 3.12.1 brings far more under `mvn site` (Jetty 9.4.46, jsoup 1.10.2, velocity 1.7, commons-compress 1.20,
+  dom4j 1.1, commons-beanutils 1.7.0, guava 16.0.1, per `mvn dependency:resolve-plugins` and OSV). Pin clean
+  (and site, if the services run it) with overrides here and in the service poms, and have checks/plugins.sh's
+  realm check cover clean.
 
 ## Promoted / declined
