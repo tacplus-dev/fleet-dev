@@ -84,5 +84,10 @@ the looper then marks it `promoted` or `declined` here with the date.
   dom4j 1.1, commons-beanutils 1.7.0, guava 16.0.1, per `mvn dependency:resolve-plugins` and OSV). Pin clean
   (and site, if the services run it) with overrides here and in the service poms, and have checks/plugins.sh's
   realm check cover clean.
+- **Run the checks in one toolchain image, locally and in CI** (2026-11-06, nightly scan, #23): #22's
+  `cargo check` passed when the land verified it, on a machine that had `protoc`. It failed in GitHub Actions,
+  where `ubuntu-latest` has none. The checks rely on whatever tools the host has: cargo, protoc, Maven, a JDK,
+  Node. A pinned image with those tools (or a `checks/Dockerfile`), used by every `*-check.yml` and by the land's
+  gate run, would make the two runs match. Then a gate cannot pass locally and fail on main.
 
 ## Promoted / declined
