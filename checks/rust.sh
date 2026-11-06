@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 # The Rust resolve check (#21): resolve the lang.rust pins of dependencies.yaml, each as an exact version,
 # check that the lockfile has none of the crates RustSec flags that the pins must not pull, and that the
-# resolved pins build together (#22).
+# resolved pins build together (#22), which needs protoc: prost-wkt-types runs it in its build script (#23).
 set -euo pipefail
+if [ -n "${PROTOC:-}" ]; then
+	[ -x "$PROTOC" ] || { echo "rust check: PROTOC=$PROTOC is not an executable protoc" >&2; exit 1; }
+else
+	command -v protoc >/dev/null || { echo "rust check: needs protoc on PATH or in PROTOC (prost-wkt-types builds with it)" >&2; exit 1; }
+fi
 root=$(cd "$(dirname "$0")/.." && pwd)
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT

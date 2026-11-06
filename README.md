@@ -21,4 +21,5 @@ Node every resolved package's `engines.node` allows and no line past its end of 
 
 `lang.rust` pins hyper 1.9.0 or later, past the unmaintained pin-utils (RUSTSEC-2026-0441): `checks/rust.sh`
 resolves the `lang.rust` pins as exact versions and fails on any crate it denies (#21) or if they do not build
-together (`cargo check`, #22: toml 0.8.23, as 0.8.22 does not build against a fresh toml_edit).
+together (`cargo check`, #22: toml 0.8.23, as 0.8.22 does not build against a fresh toml_edit). It needs
+`protoc` on PATH (or `PROTOC`), which prost-wkt-types runs in its build script (#23).
