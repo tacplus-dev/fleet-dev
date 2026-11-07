@@ -6,31 +6,41 @@
 # repo will build its own operator from, against build/proto.
 registries:
   - https://github.com/tacplus-dev/registry.git
-tacplus: "2.2"
+tacplus: "2.6"
 services:
   - name: kernel
+    version: "0.1"
     repo: https://github.com/tacplus-dev/kernel.git
   - name: opa
+    version: "0.1"
     repo: https://github.com/tacplus-dev/opa.git
   - name: gateway
+    version: "0.1"
     repo: https://github.com/tacplus-dev/gateway.git
   - name: stratum
+    version: "0.1"
     repo: https://github.com/tacplus-dev/stratum.git
   - name: eventbus
+    version: "0.1"
     repo: https://github.com/tacplus-dev/eventbus.git
   - name: kmaker
+    version: "0.1"
     repo: https://github.com/tacplus-dev/kmaker.git
   - name: oauth
+    version: "0.1"
     repo: https://github.com/tacplus-dev/oauth.git
-  - name: letsencrypt
-    repo: https://github.com/tacplus-dev/letsencrypt.git
   - name: blobstore
+    version: "0.1"
     repo: https://github.com/tacplus-dev/blobstore.git
   - name: messaging
+    version: "0.1"
     repo: https://github.com/tacplus-dev/messaging.git
   - name: mailbox
+    version: "0.1"
     repo: https://github.com/tacplus-dev/mailbox.git
   - name: llmproxy
+    version: "0.1"
     repo: https://github.com/tacplus-dev/llmproxy.git
   - name: doppelganger
+    version: "0.1"
     repo: https://github.com/tacplus-dev/doppelganger.git

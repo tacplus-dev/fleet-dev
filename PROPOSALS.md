@@ -50,11 +50,11 @@ the looper then marks it `promoted` or `declined` here with the date.
   (GHSA-vx9q-rhv9-3jvg), and only their 4.0.0 betas move past it. Once a release of each asks for plexus-archiver
   4.15.0 or later, pin it and remove the override from docs/java-plugins.md and the service poms. checks/plugins.sh
   could run a jar goal and fail on any aircompressor below 2.0.3 in its realm.
-- **Release-line pins need the 2.6 floor, not 2.4** (2026-10-29, #2): `version: "MAJOR.MINOR"` in `fleet.yaml`
-  and the version/image digest in `fleet.lock` come from tacplus#180, which ships in 2.6.0 (tacplus#213, not
-  yet released). #1 moves the floor to 2.4 only, so #2 still cannot relock after #1 closes. #1 could target 2.6
-  instead, or a 2.6 floor move could follow it. The relock also needs a token with `read:packages`: the service
-  images are private ghcr packages, and the looper's token has only `repo` and `workflow`.
+- **Release-line pins need the 2.6 floor, not 2.4** (2026-10-29, #2): settled by Jody on #1 (2026-11-07): #1
+  moves to 2.6 with a `version: "0.1"` per service and absorbs #2. The relock still needs each service's release
+  image, `ghcr.io/tacplus-dev/<repo>:<version>`, readable without a personal token (anonymous for a public package,
+  or the tacplus-reader App): on 2026-11-07 only llmproxy's (0.1.5) exists and is public; the other eleven have
+  their `v0.1.x` tags but no image (their release issues, kernel#7 and the rest, are open).
 - **The deploy tree is not in this repo** (2026-10-29, #2): #1 and #2 cite `images/build.sh`, `images/pins.yaml`
   and `deploy/build-operator.sh`, but main has none of them and no deploy docs. Image pull secrets for the private
   release images (#2's note: in every namespace running them, including the tenant namespaces nsproxy creates)
