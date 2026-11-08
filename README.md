@@ -23,3 +23,7 @@ Node every resolved package's `engines.node` allows and no line past its end of 
 resolves the `lang.rust` pins as exact versions and fails on any crate it denies (#21) or if they do not build
 together (`cargo check`, #22: toml 0.8.23, as 0.8.22 does not build against a fresh toml_edit). It needs
 `protoc` on PATH (or `PROTOC`), which prost-wkt-types runs in its build script (#23).
+
+`build.lock` pins the image the gates (`gates.yaml`: the four checks) run in, by digest, so the build pipeline
+(tacplus-dev/build) builds this repository with no Docker (#24). Moving it is a change like any other: a new
+`build_image:` digest, landed on the full gates.

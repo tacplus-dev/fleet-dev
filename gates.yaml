@@ -1,0 +1,6 @@
+# The gate map of tacplus-dev/fleet-dev (#24; tacplus-dev/looper README: Gates scaled to the diff): the gates a land
+# and the build pipeline run, in the image build.lock pins, with no Docker and no credential. One set, full: the
+# checks of checks/, as the workflows of .github/workflows run them.
+full:
+  run: checks/node.sh && checks/plugins.sh && checks/shade.sh && checks/rust.sh
+  minutes: 30
