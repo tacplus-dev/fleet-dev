@@ -89,5 +89,12 @@ the looper then marks it `promoted` or `declined` here with the date.
   where `ubuntu-latest` has none. The checks rely on whatever tools the host has: cargo, protoc, Maven, a JDK,
   Node. A pinned image with those tools (or a `checks/Dockerfile`), used by every `*-check.yml` and by the land's
   gate run, would make the two runs match. Then a gate cannot pass locally and fail on main.
+- **Move build.lock to its line's latest patch on a schedule** (2026-11-08, nightly scan, #24): `build.lock` pins
+  `tacplus/build:2.6.1` by digest (sha256:91f42995…, the 2.6.1 tag's), and the 2.6 line was at v2.6.4 by 2026-11-08
+  (2.6.2, 2.6.3 and 2.6.4 all released that day; ghcr's `2.6` tag is now sha256:3c5d7fe2…). It is on the latest
+  MAJOR.MINOR, so the pin rule holds, but nothing moves the digest: the gates keep running on whatever tools 2.6.1
+  shipped while the line's patches fix the image. The repository loopers run the compiler image of the declared
+  line at its latest patch (Jody, 2026-10-26, on #1). A scheduled job (or the manager) could relock `build_image:`
+  to the line's newest patch digest and land it on the full gates, as the README says a move must.
 
 ## Promoted / declined
