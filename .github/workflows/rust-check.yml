@@ -1,5 +1,6 @@
 # The Rust resolve check (#21): the lang.rust pins in dependencies.yaml, resolved as exact versions, pull
-# none of the crates RustSec flags that checks/rust.sh denies, and build together (#22).
+# none of the crates RustSec flags that checks/rust.sh denies, and build together (#22), which needs protoc:
+# prost-wkt-types runs it in its build script (#23).
 name: rust-check
 on:
   push:
@@ -12,4 +13,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y protobuf-compiler
       - run: checks/rust.sh
