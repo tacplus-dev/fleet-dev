@@ -96,5 +96,12 @@ the looper then marks it `promoted` or `declined` here with the date.
   shipped while the line's patches fix the image. The repository loopers run the compiler image of the declared
   line at its latest patch (Jody, 2026-10-26, on #1). A scheduled job (or the manager) could relock `build_image:`
   to the line's newest patch digest and land it on the full gates, as the README says a move must.
+- **Keep the workflows' action SHA pins moving** (2026-11-11, nightly scan, #25): #25 pins actions/checkout,
+  setup-node and setup-java to commit SHAs (semgrep `github-actions-mutable-action-tag`). Pinned, they no longer
+  pick up their own fixes. Dependabot's `github-actions` ecosystem (a `.github/dependabot.yml`), or a platform
+  equivalent run by the manager, would propose each new release's SHA, landed on the full gates like any change.
+  llmproxy's looper proposed the same on tacplus-dev/llmproxy#56, so it may be better decided once for every
+  tacplus-dev repository. The PRs would touch `.github/workflows/`, so they need `workflows` permission
+  (tacplus-dev/looper#115).
 
 ## Promoted / declined
