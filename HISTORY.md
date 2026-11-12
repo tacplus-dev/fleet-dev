@@ -11,3 +11,4 @@ Append-only: add entries at the end, never edit or remove one (CI enforces it). 
 - 2026-11-05 looper issue dependencies.yaml: hyper 1.8.1 pulls unmaintained pin-utils (RUSTSEC-2026-0441); pin hyper 1.12.0 (#21, bf9c7c2)
 - 2026-11-06 looper issue dependencies.yaml: toml 0.8.22 does not compile on a fresh resolve (toml_edit 0.22.27); pin toml 0.8.23 (#22, 2ef69c1)
 - 2026-11-08 looper issue Pin the build: a committed build.lock naming this repository's build image by digest (#24)
+- 2026-11-12 looper issue dependencies.yaml: @apollo/server ^5.5.1 now resolves 5.5.2, which caps @graphql-tools/utils at 12.0.1 (GHSA-c4qx-w738-7hr3, HIGH); pin 5.5.1 (#26, 02f902d; gates: full)
