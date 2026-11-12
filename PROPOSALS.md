@@ -25,6 +25,11 @@ the looper then marks it `promoted` or `declined` here with the date.
   For Rust, checks/rust.sh (#21) already resolves the `lang.rust` pins into a lockfile but only denies the
   crates named in it (pin-utils, RUSTSEC-2026-0441); running osv-scanner on that lockfile with the allow-list
   (#9's jsonwebtoken and rustls-pemfile, #13's unsafe-libyaml) would catch the next advisory (2026-11-05).
+  For TypeScript, checks/node.sh already resolves both trees (latest and floors) into lockfiles. An
+  `npm audit --package-lock-only` of each would have caught #26 the day it appeared (2026-11-12, nightly scan).
+  @apollo/server 5.5.2, released the day before, caps @graphql-tools/utils at 12.0.1 (GHSA-c4qx-w738-7hr3,
+  HIGH), and only the latest tree pulls it in. The build's security checks miss it, because the repository has
+  no lockfile for them to read.
 - **tacplus: plugin dependencies in `dependencies.yaml`** (2026-11-02, #17): `lang.java.dependencies` pins a
   Maven plugin's version but cannot say what it runs on, so the plexus-utils 3.6.1 override under
   maven-shade-plugin is a convention each Java service's pom keeps by hand (docs/java-plugins.md). A way to
