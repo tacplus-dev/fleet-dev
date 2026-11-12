@@ -108,5 +108,13 @@ the looper then marks it `promoted` or `declined` here with the date.
   llmproxy's looper proposed the same on tacplus-dev/llmproxy#56, so it may be better decided once for every
   tacplus-dev repository. The PRs would touch `.github/workflows/`, so they need `workflows` permission
   (tacplus-dev/looper#115).
+- **Audit the lang.typescript trees in checks/node.sh** (2026-11-12, #26): with no lockfile here, the build's
+  security checks did not see that `@apollo/server` 5.5.2 pulled in `@graphql-tools/utils` 12.0.1
+  (GHSA-c4qx-w738-7hr3, HIGH). checks/node.sh already resolves both trees (latest and floors); an
+  `npm audit --package-lock-only --audit-level=high` on each would catch the next one. It would also fail every
+  land on a new advisory that has nothing to do with the change, so the gate policy is a decision, not a fix.
+- **Move `@apollo/server` back to a `^` range** (2026-11-12, #26): it is pinned at 5.5.1 because 5.5.2 caps
+  `@graphql-tools/utils` below 12.0.2. Watch apollographql/apollo-server for a release that lifts the cap
+  (after #8232), and go back to `^` with that release as the floor.
 
 ## Promoted / declined

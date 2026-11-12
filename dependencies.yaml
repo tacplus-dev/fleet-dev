@@ -72,7 +72,7 @@ lang:
             com.google.guava:guava: 33.7.2-android
     typescript:
         dependencies:
-            '@apollo/server': ^5.5.1
+            '@apollo/server': 5.5.1
             '@bufbuild/protobuf': ^2.11.0
             '@bufbuild/protoc-gen-es': ^2.11.0
             '@iarna/toml': ^2.2.5

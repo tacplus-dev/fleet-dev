@@ -19,6 +19,12 @@ exec and build-helper plugins run on.
 Node every resolved package's `engines.node` allows and no line past its end of life in nodejs/Release's
 `schedule.json` (#20).
 
+`lang.typescript` pins `@apollo/server` at exactly 5.5.1 (#26): 5.5.2 caps `@graphql-tools/utils` below 12.0.2
+(apollographql/apollo-server#8232, for Node 20), which brings 12.0.1 and its prototype pollution
+(GHSA-c4qx-w738-7hr3, HIGH); 5.5.1's tree resolves 12.1.0. Move it back to a `^` range once an @apollo/server
+release allows `@graphql-tools/utils` 12.0.2 or later. A service whose lockfile already has 5.5.2 can override
+`@graphql-tools/utils` to `^12.1.0` (npm `overrides`).
+
 `lang.rust` pins hyper 1.9.0 or later, past the unmaintained pin-utils (RUSTSEC-2026-0441): `checks/rust.sh`
 resolves the `lang.rust` pins as exact versions and fails on any crate it denies (#21) or if they do not build
 together (`cargo check`, #22: toml 0.8.23, as 0.8.22 does not build against a fresh toml_edit). It needs
