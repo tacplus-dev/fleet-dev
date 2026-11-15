@@ -30,6 +30,11 @@ the looper then marks it `promoted` or `declined` here with the date.
   @apollo/server 5.5.2, released the day before, caps @graphql-tools/utils at 12.0.1 (GHSA-c4qx-w738-7hr3,
   HIGH), and only the latest tree pulls it in. The build's security checks miss it, because the repository has
   no lockfile for them to read.
+  For Go, query OSV's API over `go list -m all`, not `osv-scanner --lockfile go.mod` alone (2026-11-15, nightly scan,
+  #12): on a module with `go.opentelemetry.io/otel/sdk` 1.46.0 in its go.mod, osv-scanner 2.7.0 reported nothing while
+  `POST /v1/query` returned GHSA-q7gw-24fr-5p69 (fixed 1.47.0), which has no GO- id yet, so `govulncheck` misses it too.
+  And a transitive floor pin only holds where the module is in the build graph: `go mod tidy` dropped a
+  `github.com/ulikunitz/xz v0.5.17` require that nothing imported, and the graph fell back to v0.5.6.
 - **tacplus: plugin dependencies in `dependencies.yaml`** (2026-11-02, #17): `lang.java.dependencies` pins a
   Maven plugin's version but cannot say what it runs on, so the plexus-utils 3.6.1 override under
   maven-shade-plugin is a convention each Java service's pom keeps by hand (docs/java-plugins.md). A way to
