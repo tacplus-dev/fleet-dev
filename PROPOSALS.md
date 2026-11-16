@@ -91,7 +91,10 @@ the looper then marks it `promoted` or `declined` here with the date.
   `Included: commons-io:commons-io:jar:2.6`). clean 3.5.0, the newest release, drops commons-io but asks for
   plexus-utils 4.0.2 (GHSA-6fmv-xxpf-w3cw), so it needs the 4.0.3 override that antrun has. The default site
   plugin 3.12.1 brings far more under `mvn site` (Jetty 9.4.46, jsoup 1.10.2, velocity 1.7, commons-compress 1.20,
-  dom4j 1.1, commons-beanutils 1.7.0, guava 16.0.1, per `mvn dependency:resolve-plugins` and OSV). Pin clean
+  dom4j 1.1, commons-beanutils 1.7.0, guava 16.0.1, per `mvn dependency:resolve-plugins` and OSV; and, per the
+  2026-11-16 nightly scan, commons-lang 2.4 and commons-lang3 3.8.1 (GHSA-j288-q9x7-2f5v), maven-core 3.2.5
+  (GHSA-2f88-5hg8-9x2x), snappy 0.4 (GHSA-8wh2-6qhj-h7j9), plexus-archiver 4.2.7 (GHSA-wh3p-fphp-9h2m) and
+  plexus-utils 3.4.2 (GHSA-6fmv-xxpf-w3cw)). Pin clean
   (and site, if the services run it) with overrides here and in the service poms, and have checks/plugins.sh's
   realm check cover clean.
 - **Run the checks in one toolchain image, locally and in CI** (2026-11-06, nightly scan, #23): #22's
