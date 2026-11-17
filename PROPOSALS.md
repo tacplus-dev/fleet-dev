@@ -45,6 +45,7 @@ the looper then marks it `promoted` or `declined` here with the date.
   install/deploy 3.1.4 (4.0.1) and site 3.12.1 (3.4.2), all under GHSA-6fmv-xxpf-w3cw. They come from the
   Maven that runs the build unless a pom pins them. Pin releases on 4.0.3 here (and in the service poms) or
   override them as #17 does shade; checks/plugins.sh's realm check (#18) could cover them.
+  Filed as a bug, #27 (2026-11-17, nightly scan): clean, resources, jar, install and deploy, with the fix tested.
 - **The service poms still pin maven-compiler-plugin 3.15.0** (2026-11-02, #17): #16 moved the pin here to
   3.16.0 past GHSA-6fmv-xxpf-w3cw, but the root poms of kernel, stratum and eventbus still set
   `maven-compiler-plugin.version` to 3.15.0, on the affected plexus-utils. The shade overrides (kernel#33,
@@ -60,6 +61,8 @@ the looper then marks it `promoted` or `declined` here with the date.
   (GHSA-vx9q-rhv9-3jvg), and only their 4.0.0 betas move past it. Once a release of each asks for plexus-archiver
   4.15.0 or later, pin it and remove the override from docs/java-plugins.md and the service poms. checks/plugins.sh
   could run a jar goal and fail on any aircompressor below 2.0.3 in its realm.
+  maven-jar-plugin 3.5.1 (2026-07-19) is past it: plexus-archiver 4.12.0, plexus-utils 4.0.3, no aircompressor, so
+  jar needs neither override at 3.5.1 (#27, 2026-11-17). maven-plugin-plugin still does.
 - **Release-line pins need the 2.6 floor, not 2.4** (2026-10-29, #2): `version: "MAJOR.MINOR"` in `fleet.yaml`
   and the version/image digest in `fleet.lock` come from tacplus#180, which ships in 2.6.0 (tacplus#213, not
   yet released). #1 moves the floor to 2.4 only, so #2 still cannot relock after #1 closes. #1 could target 2.6
@@ -97,6 +100,7 @@ the looper then marks it `promoted` or `declined` here with the date.
   plexus-utils 3.4.2 (GHSA-6fmv-xxpf-w3cw)). Pin clean
   (and site, if the services run it) with overrides here and in the service poms, and have checks/plugins.sh's
   realm check cover clean.
+  Clean is in #27 (2026-11-17); site stays here, as no gate or service build seen runs `mvn site`.
 - **Run the checks in one toolchain image, locally and in CI** (2026-11-06, nightly scan, #23): #22's
   `cargo check` passed when the land verified it, on a machine that had `protoc`. It failed in GitHub Actions,
   where `ubuntu-latest` has none. The checks rely on whatever tools the host has: cargo, protoc, Maven, a JDK,
