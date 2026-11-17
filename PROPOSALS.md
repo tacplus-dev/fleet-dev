@@ -46,6 +46,10 @@ the looper then marks it `promoted` or `declined` here with the date.
   Maven that runs the build unless a pom pins them. Pin releases on 4.0.3 here (and in the service poms) or
   override them as #17 does shade; checks/plugins.sh's realm check (#18) could cover them.
   Filed as a bug, #27 (2026-11-17, nightly scan): clean, resources, jar, install and deploy, with the fix tested.
+  Fixed here by #27: dependencies.yaml pins clean 3.5.0, resources 3.5.0, jar 3.5.1, install/deploy 3.2.0,
+  docs/java-plugins.md gives clean and resources their overrides, and both checks read every plugin realm.
+  Left: a `bug` on each service pom (kernel pins jar 3.5.0 and resources 3.4.0, and not clean, install or
+  deploy; stratum and eventbus to check) and on tacplus if it generates those blocks.
 - **The service poms still pin maven-compiler-plugin 3.15.0** (2026-11-02, #17): #16 moved the pin here to
   3.16.0 past GHSA-6fmv-xxpf-w3cw, but the root poms of kernel, stratum and eventbus still set
   `maven-compiler-plugin.version` to 3.15.0, on the affected plexus-utils. The shade overrides (kernel#33,

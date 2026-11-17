@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- The plugin realm check (#18): runs a goal of maven-antrun-plugin, exec-maven-plugin and
      build-helper-maven-plugin the way the Java services' poms use them, antrun with the plexus-utils
-     override docs/java-plugins.md asks of them. checks/plugins.sh runs it with the versions
-     dependencies.yaml pins and checks what each plugin's class realm includes. -->
+     override docs/java-plugins.md asks of them, and the default-lifecycle plugins pinned with theirs
+     (#27). checks/plugins.sh runs clean validate with the versions dependencies.yaml pins and checks
+     what each plugin's class realm includes. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.tacplusdev.fleetdev</groupId>
@@ -14,11 +15,64 @@
 		<antrun-plugin.version/>
 		<exec-plugin.version/>
 		<build-helper-plugin.version/>
+		<clean-plugin.version/>
+		<resources-plugin.version/>
+		<jar-plugin.version/>
+		<install-plugin.version/>
+		<deploy-plugin.version/>
 		<!-- GHSA-6fmv-xxpf-w3cw: fixed in 4.0.3 on the 4.x line; antrun 3.2.0 asks for 4.0.2 -->
 		<antrun-plexus-utils.version>4.0.3</antrun-plexus-utils.version>
+		<!-- GHSA-6fmv-xxpf-w3cw: clean 3.5.0 asks for 4.0.2, resources 3.5.0 for 3.6.0 (#27) -->
+		<clean-plexus-utils.version>4.0.3</clean-plexus-utils.version>
+		<resources-plexus-utils.version>3.6.1</resources-plexus-utils.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<build>
+		<!-- The default-lifecycle plugins run in every build whether or not a pom declares them (#27):
+		     pinned here, at the versions dependencies.yaml pins, to carry their overrides. -->
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>${clean-plugin.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.codehaus.plexus</groupId>
+							<artifactId>plexus-utils</artifactId>
+							<version>${clean-plexus-utils.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${resources-plugin.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.codehaus.plexus</groupId>
+							<artifactId>plexus-utils</artifactId>
+							<version>${resources-plexus-utils.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${jar-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>${install-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>${deploy-plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
