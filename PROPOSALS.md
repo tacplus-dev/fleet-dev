@@ -25,6 +25,10 @@ the looper then marks it `promoted` or `declined` here with the date.
   For Rust, checks/rust.sh (#21) already resolves the `lang.rust` pins into a lockfile but only denies the
   crates named in it (pin-utils, RUSTSEC-2026-0441); running osv-scanner on that lockfile with the allow-list
   (#9's jsonwebtoken and rustls-pemfile, #13's unsafe-libyaml) would catch the next advisory (2026-11-05).
+  The next one came: chrono's RUSTSEC-2026-0543 (unmaintained, assigned 2026-11-17, #28), which the build's
+  security checks did not see because the repository has no Cargo.lock. `cargo-deny check advisories` on that
+  lockfile (cargo-deny 0.20.2 already runs in the security checks) reports it along with #9's and #13's crates
+  (2026-11-18, nightly scan).
   For TypeScript, checks/node.sh already resolves both trees (latest and floors) into lockfiles. An
   `npm audit --package-lock-only` of each would have caught #26 the day it appeared (2026-11-12, nightly scan).
   @apollo/server 5.5.2, released the day before, caps @graphql-tools/utils at 12.0.1 (GHSA-c4qx-w738-7hr3,
