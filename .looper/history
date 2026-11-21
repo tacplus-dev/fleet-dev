@@ -1,0 +1,1 @@
+- 2026-11-21 looper issue build.lock pins tacplus build 2.6.1, whose image has 86 fixed HIGH/CRITICAL CVEs (libopenexr, linux-libc-dev, libpq, zlib, ASP.NET, gh x/net); relock to v2.6.13 (#29)
