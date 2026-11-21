@@ -121,6 +121,12 @@ the looper then marks it `promoted` or `declined` here with the date.
   shipped while the line's patches fix the image. The repository loopers run the compiler image of the declared
   line at its latest patch (Jody, 2026-10-26, on #1). A scheduled job (or the manager) could relock `build_image:`
   to the line's newest patch digest and land it on the full gates, as the README says a move must.
+  It now costs: on 2026-11-21 (nightly scan) the 2.6.1 image had 86 HIGH/CRITICAL CVEs that v2.6.13's image fixes
+  (libopenexr, linux-libc-dev, libpq, zlib, ASP.NET, gh's x/net), filed by hand as #29, plus buildx's containerd
+  (#30, waiting on tacplus-dev/tacplus#933). The build pipeline's security report said 0 findings, because its trivy
+  does not scan `build_image`. The scan of `build.lock`'s image by digest is looper-scan's half of the accepted
+  suggestion behind tacplus-dev/tacplus#930, not a change here. With the relock scheduled, a fixed line patch
+  would reach this repository without a nightly scan having to find it.
 - **Keep the workflows' action SHA pins moving** (2026-11-11, nightly scan, #25): #25 pins actions/checkout,
   setup-node and setup-java to commit SHAs (semgrep `github-actions-mutable-action-tag`). Pinned, they no longer
   pick up their own fixes. Dependabot's `github-actions` ecosystem (a `.github/dependabot.yml`), or a platform
