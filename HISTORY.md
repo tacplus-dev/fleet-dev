@@ -14,3 +14,4 @@ Append-only: add entries at the end, never edit or remove one (CI enforces it). 
 - 2026-11-12 looper issue dependencies.yaml: @apollo/server ^5.5.1 now resolves 5.5.2, which caps @graphql-tools/utils at 12.0.1 (GHSA-c4qx-w738-7hr3, HIGH); pin 5.5.1 (#26, 02f902d; gates: full)
 - 2026-11-15 looper issue rust-check fails on main: the CI runner has no protoc, which prost-wkt-types 0.7.1 needs to build (since #22) (#23)
 - 2026-11-15 looper issue Security checks: 7 new non-blocking findings (semgrep github-actions-mutable-action-tag in node-check, plugins-check, rust-check, shade-check .yml) (#25)
+- 2026-11-17 looper issue dependencies.yaml: Maven's default-lifecycle plugins are unpinned, and clean 3.2.0, resources 3.4.0, jar 3.5.0, install/deploy 3.1.4 run on vulnerable plexus-utils, commons-io, aircompressor; pin clean 3.5.0, resources 3.5.0, jar 3.5.1, install/deploy 3.2.0 (#27)
