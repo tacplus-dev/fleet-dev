@@ -16,3 +16,4 @@ Append-only: add entries at the end, never edit or remove one (CI enforces it). 
 - 2026-11-15 looper issue Security checks: 7 new non-blocking findings (semgrep github-actions-mutable-action-tag in node-check, plugins-check, rust-check, shade-check .yml) (#25)
 - 2026-11-17 looper issue dependencies.yaml: Maven's default-lifecycle plugins are unpinned, and clean 3.2.0, resources 3.4.0, jar 3.5.0, install/deploy 3.1.4 run on vulnerable plexus-utils, commons-io, aircompressor; pin clean 3.5.0, resources 3.5.0, jar 3.5.1, install/deploy 3.2.0 (#27)
 - 2026-11-21 looper issue build.lock pins tacplus build 2.6.1, whose image has 86 fixed HIGH/CRITICAL CVEs (libopenexr, linux-libc-dev, libpq, zlib, ASP.NET, gh x/net); relock to v2.6.13 (#29)
+- 2026-11-23 looper issue Pinned images behind their lines: relock (build.lock: ghcr.io/tacplus-dev/tacplus/build:2.6.13 → ghcr.io/tacplus-dev/tacplus/build:2.6.14) (#31)
