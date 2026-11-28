@@ -39,6 +39,12 @@ the looper then marks it `promoted` or `declined` here with the date.
   `POST /v1/query` returned GHSA-q7gw-24fr-5p69 (fixed 1.47.0), which has no GO- id yet, so `govulncheck` misses it too.
   And a transitive floor pin only holds where the module is in the build graph: `go mod tidy` dropped a
   `github.com/ulikunitz/xz v0.5.17` require that nothing imported, and the graph fell back to v0.5.6.
+  For Python, resolve the floors with pip (`pip install --dry-run --report`), not osv-scanner's transitive
+  enricher on a requirements.txt (2026-11-28, nightly scan). On the `lang.python` floors as exact versions,
+  osv-scanner 2.7.1's enricher picked anyio 4.9.0, certifi 2026.7.22 and idna 3.9.0 and reported their
+  advisories (GHSA-82r6-8w77-94w6, CRITICAL; GHSA-6q48-6c7w-9gw2, CRITICAL; GHSA-65pc-fj4g-8rjx). A pip
+  resolve of the same floors gets anyio 4.16.0, certifi 2026.11.20 and idna 3.20, all of them fixed.
+  The enricher's resolve does not match what an install gets, so the scan would file false findings.
 - **tacplus: plugin dependencies in `dependencies.yaml`** (2026-11-02, #17): `lang.java.dependencies` pins a
   Maven plugin's version but cannot say what it runs on, so the plexus-utils 3.6.1 override under
   maven-shade-plugin is a convention each Java service's pom keeps by hand (docs/java-plugins.md). A way to
