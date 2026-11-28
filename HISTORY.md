@@ -19,3 +19,4 @@ Append-only: add entries at the end, never edit or remove one (CI enforces it). 
 - 2026-11-23 looper issue Pinned images behind their lines: relock (build.lock: ghcr.io/tacplus-dev/tacplus/build:2.6.13 → ghcr.io/tacplus-dev/tacplus/build:2.6.14) (#31)
 - 2026-11-25 looper issue Pinned images behind their lines: relock (build.lock: ghcr.io/tacplus-dev/tacplus/build:2.6.14 → ghcr.io/tacplus-dev/tacplus/build:20261123-57a6521) (#32)
 - 2026-11-27 looper issue Pinned images behind their lines: relock (build.lock: ghcr.io/tacplus-dev/tacplus/build:20261123-57a6521 → ghcr.io/tacplus-dev/tacplus/build:20261126-57a6521) (#33)
+- 2026-11-28 looper issue Pinned images behind their lines: relock (build.lock: ghcr.io/tacplus-dev/tacplus/build:20261126-57a6521 → ghcr.io/tacplus-dev/tacplus/build:20261128-7319ce5) (#36)
