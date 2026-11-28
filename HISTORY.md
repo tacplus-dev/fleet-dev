@@ -18,3 +18,4 @@ Append-only: add entries at the end, never edit or remove one (CI enforces it). 
 - 2026-11-21 looper issue build.lock pins tacplus build 2.6.1, whose image has 86 fixed HIGH/CRITICAL CVEs (libopenexr, linux-libc-dev, libpq, zlib, ASP.NET, gh x/net); relock to v2.6.13 (#29)
 - 2026-11-23 looper issue Pinned images behind their lines: relock (build.lock: ghcr.io/tacplus-dev/tacplus/build:2.6.13 → ghcr.io/tacplus-dev/tacplus/build:2.6.14) (#31)
 - 2026-11-25 looper issue Pinned images behind their lines: relock (build.lock: ghcr.io/tacplus-dev/tacplus/build:2.6.14 → ghcr.io/tacplus-dev/tacplus/build:20261123-57a6521) (#32)
+- 2026-11-27 looper issue Pinned images behind their lines: relock (build.lock: ghcr.io/tacplus-dev/tacplus/build:20261123-57a6521 → ghcr.io/tacplus-dev/tacplus/build:20261126-57a6521) (#33)
